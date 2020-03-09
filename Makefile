@@ -1,34 +1,30 @@
 CXX=g++
 
 OBJS=hello.o main.o
+EXEC=main
+DOCKER_CONTAINER_NAME=hello
+DOCKER_IMAGE_NAME=paulknauer/hello
 
-all: main
+all: $(EXEC)
 
-main: $(OBJS)
-	$(CXX) -o main $(OBJS) 
+$(EXEC): $(OBJS)
+	$(CXX) -o $@ $(OBJS) 
 
-%.o: %.cpp
-	$(CXX) -c $<
+.cpp.o:
+	$(CXX) -c $< -o $@
 
-asm: hello.s main.s
-	cat hello.s
-	cat main.s
-
-%.s: %.cpp
-	$(CXX) -S $<
-
-run: main
-	./main
+run: $(EXEC)
+	./$<
 
 docker-build:
-	docker build -t hello .
+	docker build -t $(DOCKER_IMAGE_NAME) .
 
 docker-run: docker-build
-	docker run --name hello -it hello
+	docker run --name $(DOCKER_CONTAINER_NAME) -t $(DOCKER_IMAGE_NAME)
 
 docker-clean: clean
-	docker rm -f hello
-	docker rmi -f hello
+	docker rm -f $(DOCKER_CONTAINER_NAME)
+	docker rmi -f $(DOCKER_IMAGE_NAME)
 
 clean:
-	rm -f *.o *.s main
+	rm -f $(OBJS) $(EXEC)	
