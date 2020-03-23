@@ -2,6 +2,6 @@
 
 int main(void) {
 	Hello *hello = new Hello();
-	hello->world("Paul");
+	hello->world("Ross");
 	return 0;
 }
