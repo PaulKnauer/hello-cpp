@@ -1,18 +1,20 @@
-FROM ubuntu:18.04 as builder
+FROM  alpine as builder
 
 LABEL autodelete="true"
 
-RUN apt -y update \
-	&& apt install -y build-essential
+RUN apk update \
+	&& apk add build-base
 
-WORKDIR /gitlab-static-cpp
-COPY * /gitlab-static-cpp/
+WORKDIR /hello-cpp
+COPY * /hello-cpp/
 
 RUN make
 
-FROM ubuntu:18.04
+FROM alpine
 
-COPY --from=builder /gitlab-static-cpp/main /
+RUN apk update \
+	&& apk add libstdc++
+
+COPY --from=builder /hello-cpp/main /
 
 ENTRYPOINT ["./main"]
-

@@ -1,21 +1,23 @@
-FROM ubuntu:18.04 as builder
+FROM  alpine as builder
 
 LABEL autodelete="true"
 
-RUN apt -y update \
-	&& apt install -y build-essential
+RUN apk update \
+	&& apk add build-base
 
-WORKDIR /gitlab-shared-cpp
-COPY * /gitlab-shared-cpp/
+WORKDIR /hello-cpp
+COPY * /hello-cpp/
 
 RUN make
 
-FROM ubuntu:18.04
+FROM alpine
 
-COPY --from=builder /gitlab-shared-cpp/libshared.so /
-COPY --from=builder /gitlab-shared-cpp/main /
+RUN apk update \
+	&& apk add libstdc++
+
+COPY --from=builder /hello-cpp/libshared.so /
+COPY --from=builder /hello-cpp/main /
 
 ENV LD_LIBRARY_PATH=.
 
 ENTRYPOINT ["./main"]
-
