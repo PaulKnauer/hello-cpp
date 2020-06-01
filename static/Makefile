@@ -3,23 +3,26 @@ AR=ar
 
 OBJS=main.o
 EXEC=main
+LDFLAGS=-L.
+LDLIBS=-lstatic
+LIB=libstatic.a
+LIBOBJ=static.o
 DOCKER_CONTAINER_NAME=static
 DOCKER_IMAGE_NAME=paulknauer/static
 
-all: $(EXEC)
+all: $(LIB) $(EXEC)
 
-$(EXEC): libstatic.a $(OBJS)
-	$(CXX) -o $@ $(OBJS) -L. -lstatic
+$(EXEC): $(OBJS)
+	$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(LDLIBS)
 
-libstatic.a: static.o
-	$(CXX) -c static.cpp -o $<
+$(LIB): $(LIBOBJ)
 	$(AR) rvs $@ $<
 
 .cpp.o:
 	$(CXX) -c $< -o $@
 
-run: $(EXEC)
-	./$<
+run: $(LIB) $(EXEC)
+	./$(EXEC)
 
 docker-build:
 	docker build -t $(DOCKER_IMAGE_NAME) .
@@ -33,4 +36,4 @@ docker-clean: clean
 	./autodelete-dangling.sh
 
 clean:
-	rm -f *.a $(OBJS) $(EXEC)	
+	rm -f $(LIBOBJ) $(OBJS) $(LIB) $(EXEC)	
