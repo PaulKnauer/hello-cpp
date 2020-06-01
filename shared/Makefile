@@ -1,26 +1,41 @@
 CXX=g++
+EXEC=main
+OBJ=main.o
+LIB=libshared.so
+LIBOBJ=shared.o
+LDFLAGS=-L.
+LDLIBS=-lshared
+DOCKER_CONTAINER_NAME=shared
+DOCKER_IMAGE_NAME=paulknauer/shared
 
-main: libshared.so main.o
-	$(CXX) -o main  main.o -L. -lshared
+all: $(LIB) $(EXEC)
 
-libshared.so: shared.cpp
-	$(CXX) -fPIC -c shared.cpp -o shared.o
-	$(CXX) -shared -o libshared.so shared.o
+$(EXEC): $(OBJ)
+	$(CXX) -o $@ $< $(LDFLAGS) $(LDLIBS)
+
+.cpp.o:
+	$(CXX) -c $< -o $@
+
+$(LIB): $(LIBOBJ)
+	$(CXX) -shared -o $@ $<
+
+$(LIBOBJ): shared.cpp
+	$(CXX) -fPIC -c $< -o $@
 
 clean:
-	rm *.o *.so main
+	rm -f $(OBJ) $(LIBOBJ) $(LIB) $(EXEC)
 
-run: main
+run: all
 	export LD_LIBRARY_PATH=. \
-		&& ./main
+		&& ./$(EXEC)
 
 docker-build:
-	docker build -t shared .
+	docker build -t $(DOCKER_IMAGE_NAME) .
 
 docker-run: docker-build
-	docker run --name shared -t shared
+	docker run --name $(DOCKER_CONTAINER_NAME) -t $(DOCKER_IMAGE_NAME)
 
 docker-clean:
-	docker rm -f shared
-	docker rmi -f shared
+	docker rm -f $(DOCKER_CONTAINER_NAME)
+	docker rmi -f $(DOCKER_IMAGE_NAME)
 	./autodelete-dangling.sh

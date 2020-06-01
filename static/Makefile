@@ -3,8 +3,8 @@ AR=ar
 
 OBJS=main.o
 EXEC=main
-DOCKER_CONTAINER_NAME=hello
-DOCKER_IMAGE_NAME=paulknauer/hello
+DOCKER_CONTAINER_NAME=static
+DOCKER_IMAGE_NAME=paulknauer/static
 
 all: $(EXEC)
 
