@@ -3,11 +3,10 @@
 
 using namespace std;
 
-int main(int argc, char *argv[])
-{
-  Shared m;
+int main(void) {
+  Shared *sharedLib = new Shared();
 
-  cout << m.getx() << endl;
-  m.setx(10);
-  cout << m.getx() << endl;
+  cout << "Hello " << sharedLib->getName() << endl;
+  sharedLib->setName("Paul");
+  cout << "Hello " << sharedLib->getName() << endl;
 }

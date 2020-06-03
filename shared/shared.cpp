@@ -1,9 +1,15 @@
 #include "shared.h"
 
-void Shared::setx(int newx) {
- myx = newx; 
+#include <string>
+
+Shared::Shared() {
+    name = "<name>";
 }
 
-int  Shared::getx() {
- return myx; 
+void Shared::setName(string name) {
+    this->name = name;
+}
+
+string Shared::getName() {
+    return name; 
 }

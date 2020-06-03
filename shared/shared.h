@@ -1,13 +1,17 @@
 #ifndef SHARED_H
 #define SHARED_H
 
+#include <string>
+
+using namespace std;
+
 class Shared {
-  private:
-   int myx;
   public:
-    Shared() { myx=0; }
-    void setx(int newx);
-    int  getx();
+    Shared();
+    void setName(string name);
+    string  getName();
+  private:
+    string name;
 };
 
 #endif

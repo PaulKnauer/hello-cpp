@@ -1,13 +1,17 @@
 #ifndef STATIC_H
 #define STATIC_H
 
+#include <string>
+
+using namespace std;
+
 class Static {
-  private:
-   int myx;
   public:
-    Static() { myx=0; }
-    void setx(int newx);
-    int  getx();
+    Static();
+    void setName(string name);
+    string  getName();
+  private:
+    string name;
 };
 
 #endif

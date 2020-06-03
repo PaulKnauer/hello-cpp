@@ -1,9 +1,15 @@
 #include "static.h"
 
-void Static::setx(int newx) {
- myx = newx; 
+#include <string>
+
+Static::Static() {
+    name = "<name>";
 }
 
-int  Static::getx() {
- return myx; 
+void Static::setName(string name) {
+    this->name = name;
+}
+
+string Static::getName() {
+    return name; 
 }
