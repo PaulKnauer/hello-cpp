@@ -12,6 +12,13 @@ clean:
 	cd shared && make -e clean
 	cd static && make -e clean
 
+.PHONY: run
+run:
+	cd basic && make -e run
+	cd getenv && make -e run
+	cd shared && make -e run
+	cd static && make -e run
+
 .PHONY: docker-build
 docker-build:
 	cd basic && make -e docker-build

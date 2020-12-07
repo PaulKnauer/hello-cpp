@@ -1,1 +1,7 @@
 .vscode
+
+*.o
+*.so
+*.a
+
+main
