@@ -1,6 +1,7 @@
 FROM  alpine as builder
 
 LABEL autodelete="true"
+LABEL project="static"
 
 RUN apk update \
 	&& apk add build-base

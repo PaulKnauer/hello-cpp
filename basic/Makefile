@@ -25,7 +25,7 @@ docker-run: docker-build
 docker-clean: clean
 	docker rm -f $(DOCKER_CONTAINER_NAME); \
 		docker rmi -f $(DOCKER_IMAGE_NAME); \
-		./autodelete-dangling.sh
+		cd ../scripts && ./autodelete-dangling.sh basic
 
 clean:
 	rm -f $(OBJS) $(EXEC)	
