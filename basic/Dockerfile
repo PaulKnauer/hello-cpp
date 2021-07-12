@@ -7,7 +7,9 @@ RUN apk update \
 	&& apk add build-base
 
 WORKDIR /hello-cpp
-COPY * /hello-cpp/
+COPY Makefile /hello-cpp/
+COPY *.h /hello-cpp/
+COPY *.cpp /hello-cpp/
 
 RUN make
 
