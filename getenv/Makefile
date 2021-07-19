@@ -6,7 +6,7 @@ LDLIBS=
 DOCKER_CONTAINER_NAME=getenv
 DOCKER_IMAGE_NAME=paulknauer/getenv
 
-all: $(LIB) $(EXEC)
+all: $(EXEC)
 
 $(EXEC): $(OBJ)
 	$(CXX) -o $@ $< $(LDFLAGS) $(LDLIBS)
