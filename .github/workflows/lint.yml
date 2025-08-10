@@ -1,0 +1,69 @@
+name: C++ Lint
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang-tidy cppcheck clang-format
+        
+    - name: Check code formatting with clang-format
+      run: |
+        echo "Checking code formatting..."
+        find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | grep -v ".git" | while read file; do
+          echo "Checking $file"
+          clang-format --dry-run --Werror "$file" || {
+            echo "Formatting issues found in $file"
+            echo "Run: clang-format -i $file to fix"
+            exit 1
+          }
+        done
+        
+    - name: Run cppcheck
+      run: |
+        echo "Running cppcheck..."
+        cppcheck --enable=all --error-exitcode=1 \
+          --suppress=missingIncludeSystem \
+          --suppress=unusedFunction \
+          --suppress=unmatchedSuppression \
+          --inline-suppr \
+          basic/ shared/ static/ getenv/
+          
+    - name: Run clang-tidy
+      run: |
+        echo "Running clang-tidy..."
+        find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | grep -v ".git" | while read file; do
+          echo "Analyzing $file"
+          clang-tidy "$file" -- -std=c++11 -I. || {
+            echo "clang-tidy found issues in $file"
+            exit 1
+          }
+        done
+        
+    - name: Check for common C++ issues
+      run: |
+        echo "Checking for common C++ issues..."
+        # Check for using namespace std in headers
+        if grep -r "using namespace std" --include="*.h" --include="*.hpp" .; then
+          echo "Warning: 'using namespace std' found in header files"
+          echo "Consider removing or moving to implementation files"
+        fi
+        
+        # Check for missing include guards
+        find . -name "*.h" -o -name "*.hpp" | grep -v ".git" | while read file; do
+          if ! grep -q "#ifndef\|#pragma once" "$file"; then
+            echo "Warning: $file may be missing include guards"
+          fi
+        done 
