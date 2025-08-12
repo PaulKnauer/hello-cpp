@@ -6,12 +6,13 @@
 using namespace std;
 
 class Static {
-  public:
-    Static();
-    void setName(string name);
-    string  getName();
-  private:
-    string name;
+public:
+  Static();
+  void setName(string name);
+  string getName();
+
+private:
+  string name;
 };
 
 #endif

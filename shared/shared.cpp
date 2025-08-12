@@ -3,13 +3,13 @@
 #include <string>
 
 Shared::Shared() {
-    name = "<name>";
+  name = "<name>";
 }
 
 void Shared::setName(string name) {
-    this->name = name;
+  this->name = name;
 }
 
 string Shared::getName() {
-    return name; 
+  return name;
 }

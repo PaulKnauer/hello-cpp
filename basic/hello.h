@@ -7,10 +7,11 @@
 using namespace std;
 
 class Hello {
-	public:
-		Hello();
-		void world(string);
-	private:
+public:
+  Hello();
+  void world(string);
+
+private:
 };
 
 #endif

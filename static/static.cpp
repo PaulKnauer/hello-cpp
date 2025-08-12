@@ -3,13 +3,13 @@
 #include <string>
 
 Static::Static() {
-    name = "<name>";
+  name = "<name>";
 }
 
 void Static::setName(string name) {
-    this->name = name;
+  this->name = name;
 }
 
 string Static::getName() {
-    return name; 
+  return name;
 }
