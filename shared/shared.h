@@ -6,12 +6,13 @@
 using namespace std;
 
 class Shared {
-  public:
-    Shared();
-    void setName(string name);
-    string  getName();
-  private:
-    string name;
+public:
+  Shared();
+  void setName(string name);
+  string getName();
+
+private:
+  string name;
 };
 
 #endif
