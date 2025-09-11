@@ -1,4 +1,5 @@
 CXX=g++
+CXXFLAGS?=-std=c++17 -Wall -Wextra -Wpedantic -O2
 AR=ar
 
 OBJS=main.o
@@ -13,13 +14,13 @@ DOCKER_IMAGE_NAME=paulknauer/static
 all: $(LIB) $(EXEC)
 
 $(EXEC): $(OBJS)
-	$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(LDLIBS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) $(LDFLAGS) $(LDLIBS)
 
 $(LIB): $(LIBOBJ)
 	$(AR) rvs $@ $<
 
 .cpp.o:
-	$(CXX) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run: $(LIB) $(EXEC)
 	./$(EXEC)

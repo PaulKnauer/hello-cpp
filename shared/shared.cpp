@@ -1,15 +1,11 @@
 #include "shared.h"
 
-#include <string>
+Shared::Shared() : name_("<name>") {}
 
-Shared::Shared() {
-    name = "<name>";
+void Shared::setName(const std::string& name) {
+  name_ = name;
 }
 
-void Shared::setName(string name) {
-    this->name = name;
-}
-
-string Shared::getName() {
-    return name; 
+const std::string& Shared::getName() const {
+  return name_;
 }

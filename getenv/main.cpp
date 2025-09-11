@@ -1,17 +1,16 @@
-#include <iostream>
 #include <cstdlib>
-using namespace std;
+#include <iostream>
 
 int main() {
+  const char* env_vars[] = {"PWD", "HOME", "TTY", "LIB", "USER"};
 
-	const char *env_var[5] = {"PWD", "HOME", "TTY", "LIB", "USER"};
+  for (const char* name : env_vars) {
+    if (const char* env_val = std::getenv(name)) {
+      std::cout << name << '=' << env_val << '\n';
+    } else {
+      std::cout << name << " not set" << '\n';
+    }
+  }
 
-	for (int i = 0; i < 5; i++) {
-		char *env_val = getenv(env_var[i]);
-
-		if (env_val != NULL)
-			cout << env_var[i] << "=" << env_val << endl;
-		else
-			cout << env_var[i] << " not set" << endl;
-	}
+  return 0;
 }

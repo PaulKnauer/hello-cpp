@@ -1,4 +1,5 @@
 CXX=g++
+CXXFLAGS?=-std=c++17 -Wall -Wextra -Wpedantic -O2
 EXEC=main
 OBJ=main.o
 LIB=libshared.so
@@ -11,16 +12,16 @@ DOCKER_IMAGE_NAME=paulknauer/shared
 all: $(LIB) $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CXX) -o $@ $< $(LDFLAGS) $(LDLIBS)
+	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS) $(LDLIBS)
 
 .cpp.o:
-	$(CXX) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(LIB): $(LIBOBJ)
 	$(CXX) -shared -o $@ $<
 
 $(LIBOBJ): shared.cpp
-	$(CXX) -fPIC -c $< -o $@
+	$(CXX) $(CXXFLAGS) -fPIC -c $< -o $@
 
 clean:
 	rm -f $(OBJ) $(LIBOBJ) $(LIB) $(EXEC)

@@ -1,7 +1,7 @@
 #include "hello.h"
 
-int main(void) {
-	Hello *hello = new Hello();
-	hello->world("Paul");
-	return 0;
+int main() {
+  Hello hello;
+  hello.world("Paul");
+  return 0;
 }
