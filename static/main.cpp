@@ -1,12 +1,11 @@
 #include <iostream>
 #include "static.h"
 
-using namespace std;
+int main() {
+  Static staticLib;
 
-int main(void) {
-  Static *staticLib = new Static();
-
-  cout << "Hello " << staticLib->getName() << endl;
-  staticLib->setName("Paul");
-  cout << "Hello " << staticLib->getName() << endl;
+  std::cout << "Hello " << staticLib.getName() << '\n';
+  staticLib.setName("Paul");
+  std::cout << "Hello " << staticLib.getName() << '\n';
+  return 0;
 }

@@ -1,4 +1,5 @@
 CXX=g++
+CXXFLAGS?=-std=c++17 -Wall -Wextra -Wpedantic -O2
 
 OBJS=hello.o main.o
 EXEC=main
@@ -8,10 +9,10 @@ DOCKER_IMAGE_NAME=paulknauer/hello
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
-	$(CXX) -o $@ $(OBJS) 
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
 .cpp.o:
-	$(CXX) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run: $(EXEC)
 	./$<

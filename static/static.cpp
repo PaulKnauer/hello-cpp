@@ -1,15 +1,11 @@
 #include "static.h"
 
-#include <string>
+Static::Static() : name_("<name>") {}
 
-Static::Static() {
-  name = "<name>";
+void Static::setName(const std::string& name) {
+  name_ = name;
 }
 
-void Static::setName(string name) {
-  this->name = name;
-}
-
-string Static::getName() {
-  return name;
+const std::string& Static::getName() const {
+  return name_;
 }

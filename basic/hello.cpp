@@ -1,9 +1,10 @@
 #include "hello.h"
+#include <iostream>
 
 Hello::Hello() {
-  cout << "Hello <name>" << endl;
+  std::cout << "Hello <name>\n";
 }
 
-void Hello::world(string name) {
-  cout << "Hello " << name << endl;
+void Hello::world(const std::string& name) const {
+  std::cout << "Hello " << name << '\n';
 }

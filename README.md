@@ -117,5 +117,5 @@ Rel(shared_exec, shared_lib, "Links at run-time (LD_LIBRARY_PATH=.)")
 
 ## Notes
 
-- The examples use simple `Makefile`s without explicit standard/warning flags; you can add `-std=c++17 -Wall -Wextra` if desired.
-- The lint workflow warns about common C++ pitfalls (e.g., formatting). It’s safe to iterate locally and let CI guide improvements.
+- Each `Makefile` now enables `-std=c++17 -Wall -Wextra -Wpedantic` by default for safer builds. Override with `CXXFLAGS=...` if needed.
+- The code avoids `using namespace std;` in headers, uses const-correct interfaces, and prefers automatic storage over raw `new`.

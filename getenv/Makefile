@@ -1,4 +1,5 @@
 CXX=g++
+CXXFLAGS?=-std=c++17 -Wall -Wextra -Wpedantic -O2
 EXEC=main
 OBJ=main.o
 LDFLAGS=
@@ -9,10 +10,10 @@ DOCKER_IMAGE_NAME=paulknauer/getenv
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CXX) -o $@ $< $(LDFLAGS) $(LDLIBS)
+	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS) $(LDLIBS)
 
 .cpp.o:
-	$(CXX) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ) $(EXEC)

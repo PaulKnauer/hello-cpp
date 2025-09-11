@@ -3,16 +3,14 @@
 
 #include <string>
 
-using namespace std;
-
 class Shared {
 public:
   Shared();
-  void setName(string name);
-  string getName();
+  void setName(const std::string& name);
+  const std::string& getName() const;
 
 private:
-  string name;
+  std::string name_;
 };
 
 #endif

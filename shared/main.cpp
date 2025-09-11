@@ -1,12 +1,11 @@
 #include <iostream>
 #include "shared.h"
 
-using namespace std;
+int main() {
+  Shared sharedLib;
 
-int main(void) {
-  Shared *sharedLib = new Shared();
-
-  cout << "Hello " << sharedLib->getName() << endl;
-  sharedLib->setName("Paul");
-  cout << "Hello " << sharedLib->getName() << endl;
+  std::cout << "Hello " << sharedLib.getName() << '\n';
+  sharedLib.setName("Paul");
+  std::cout << "Hello " << sharedLib.getName() << '\n';
+  return 0;
 }
